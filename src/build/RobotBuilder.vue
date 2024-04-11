@@ -2,41 +2,136 @@
   <div>
     <div class="top-row">
       <div class="top part">
-        <img src="./images/head-big-eye.png" alt="head" />
-        <button class="prev-selector">&#9668;</button>
-        <button class="next-selector">&#9658;</button>
+        <img :src="selectedRobot.head.imageUrl" alt="head" />
+        <button @click="selectPrevHead()" class="prev-selector">&#9668;</button>
+        <button @click="selectNextHead()" class="next-selector">&#9658;</button>
       </div>
     </div>
     <div class="middle-row">
       <div class="left part">
-        <img src="./images/arm-articulated-claw.png" alt="left arm" />
-        <button class="prev-selector">&#9650;</button>
-        <button class="next-selector">&#9660;</button>
+        <img :src="selectedRobot.leftArm.imageUrl" alt="left arm" />
+        <button @click="selectPrevLeftArm()" class="prev-selector">&#9650;</button>
+        <button @click="selectPrevLeftArm()" class="next-selector">&#9660;</button>
       </div>
       <div class="center part">
-        <img src="./images/torso-flexible-gauged.png" alt="torso" />
-        <button class="prev-selector">&#9668;</button>
-        <button class="next-selector">&#9658;</button>
+        <img :src="selectedRobot.torso.imageUrl" alt="torso" />
+        <button @click="selectPrevTorso()" class="prev-selector">&#9668;</button>
+        <button @click="selectPrevTorso()" class="next-selector">&#9658;</button>
       </div>
       <div class="right part">
-        <img src="./images/arm-dual-claw.png" alt="right arm" />
-        <button class="prev-selector">&#9650;</button>
-        <button class="next-selector">&#9660;</button>
+        <img :src="selectedRobot.rightArm.imageUrl" alt="right arm" />
+        <button @click="selectPrevRightArm()" class="prev-selector">&#9650;</button>
+        <button @click="selectPrevRightArm()" class="next-selector">&#9660;</button>
       </div>
     </div>
     <div class="bottom-row">
       <div class="bottom part">
-        <img src="./images/base-single-wheel.png" alt="base" />
-        <button class="prev-selector">&#9668;</button>
-        <button class="next-selector">&#9658;</button>
+        <img :src="selectedRobot.base.imageUrl" alt="base" />
+        <button @click="selectPrevBase()" class="prev-selector">&#9668;</button>
+        <button @click="selectPrevBase()" class="next-selector">&#9658;</button>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import parts from "../data/parts";
+
+function getNextValidIndex(index, length) {
+  const incrementedIndex = index + 1;
+  return incrementedIndex > length - 1 ? 0 : incrementedIndex;
+}
+
+function getPrevValidIndex(index, length) {
+  const deprecatedIndex = index - 1;
+  return deprecatedIndex < 0 ? length - 1 : deprecatedIndex;
+}
+
 export default {
   name: "RobotBuilder",
+  data() {
+    return {
+      availableParts: parts,
+      selectedHeadIndex: 0,
+      selectedTorsoIndex: 0,
+      selectedLeftArmIndex: 0,
+      selectedRightArmIndex: 0,
+      selectedBaseIndex: 0,
+    };
+  },
+  computed: {
+    selectedRobot() {
+      return {
+        head: this.availableParts.heads[this.selectedHeadIndex],
+        torso: this.availableParts.torsos[this.selectedTorsoIndex],
+        leftArm: this.availableParts.arms[this.selectedLeftArmIndex],
+        rightArm: this.availableParts.arms[this.selectedRightArmIndex],
+        base: this.availableParts.bases[this.selectedBaseIndex],
+      };
+    },
+  },
+  methods: {
+    selectNextHead() {
+      this.selectedHeadIndex = getNextValidIndex(
+        this.selectedHeadIndex,
+        this.availableParts.heads.length,
+      );
+    },
+    selectPrevHead() {
+      this.selectedHeadIndex = getPrevValidIndex(
+        this.selectedHeadIndex,
+        this.availableParts.heads.length,
+      );
+    },
+    selectNextTorso() {
+      this.selectedTorsoIndex = getNextValidIndex(
+        this.selectedTorsoIndex,
+        this.availableParts.torsos.length,
+      );
+    },
+    selectPrevTorso() {
+      this.selectedTorsoIndex = getPrevValidIndex(
+        this.selectedTorsoIndex,
+        this.availableParts.torsos.length,
+      );
+    },
+    selectNextLeftArm() {
+      this.selectedLeftArmIndex = getNextValidIndex(
+        this.selectedLeftArmIndex,
+        this.availableParts.arms.length,
+      );
+    },
+    selectPrevLeftArm() {
+      this.selectedLeftArmIndex = getPrevValidIndex(
+        this.selectedLeftArmIndex,
+        this.availableParts.arms.length,
+      );
+    },
+    selectNextRightArm() {
+      this.selectedRightArmIndex = getNextValidIndex(
+        this.selectedRightArmIndex,
+        this.availableParts.arms.length,
+      );
+    },
+    selectPrevRightArm() {
+      this.selectedRightArmIndex = getPrevValidIndex(
+        this.selectedRightArmIndex,
+        this.availableParts.arms.length,
+      );
+    },
+    selectNextBase() {
+      this.selectedBaseIndex = getNextValidIndex(
+        this.selectedBaseIndex,
+        this.availableParts.bases.length,
+      );
+    },
+    selectPrevBase() {
+      this.selectedBaseIndex = getPrevValidIndex(
+        this.selectedBaseIndex,
+        this.availableParts.bases.length,
+      );
+    },
+  },
 };
 </script>
 
