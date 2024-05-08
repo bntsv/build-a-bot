@@ -9,7 +9,6 @@
 
 <script setup>
 import { computed } from "vue";
-// eslint-disable-next-line import/no-extraneous-dependencies
 // import { useRoute } from "vue-router";
 import parts from "../data/parts";
 

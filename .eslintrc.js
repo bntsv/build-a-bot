@@ -14,6 +14,6 @@ module.exports = {
     "linebreak-style": 0,
     "operator-linebreak": 0,
     quotes: [2, "double", { avoidEscape: true }],
-    "import/no-extraneous-dependencies": ["error", { devDependencies: false, optionalDependencies: false, peerDependencies: false }],
+    plugins: ["import"],
   },
 };
