@@ -52,23 +52,6 @@
       />
     </div>
   </div>
-  <div>
-    <h1>Cart</h1>
-    <table>
-      <thead>
-        <tr>
-          <th>Robot</th>
-          <th class="cost">Cost</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="(robot, index) in cart" :key="index">
-          <td>{{robot.head.title}}</td>
-          <td class="cost">{{ toCurrency(robot.cost) }}</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
 </template>
 
 <script>
@@ -186,13 +169,15 @@
 // </script>
 
 <script setup>
+import { useCartStore } from "@/stores/cartStore";
+import { storeToRefs } from "pinia";
 import { ref } from "vue";
 import parts from "../data/parts";
-import { toCurrency } from "../shared/formatters";
 import PartSelector from "./PartSelector.vue";
 
+const { cart } = storeToRefs(useCartStore());
+
 const availableParts = parts;
-const cart = ref([]);
 
 const selectedRobot = ref({
   head: {},

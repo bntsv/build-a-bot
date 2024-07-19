@@ -14,6 +14,9 @@ module.exports = {
     "linebreak-style": 0,
     "operator-linebreak": 0,
     quotes: [2, "double", { avoidEscape: true }],
-    plugins: ["import"],
+    // plugins: ["import"],
+    "import/prefer-default-export": "off",
+    "no-return-assign": "off",
+    "no-param-reassign": "off",
   },
 };
