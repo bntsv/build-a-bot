@@ -8,9 +8,12 @@
 </template>
 
 <script setup>
+import { usePartsStore } from "@/stores/partsStore";
 import { computed } from "vue";
 // import { useRoute } from "vue-router";
-import parts from "../data/parts";
+// import parts from "../data/parts";
+
+const partsStore = usePartsStore();
 
 const props = defineProps(["partType", "id"]);
 const part = computed(() => {
@@ -18,6 +21,6 @@ const part = computed(() => {
 //   const { partType, id } = route.params;
   const { partType, id } = props;
 
-  return parts[partType].find((p) => p.id === +id);
+  return partsStore.parts[partType].find((p) => p.id === +id);
 });
 </script>
