@@ -1,22 +1,27 @@
 <template>
   <div class="content" v-if="partsStore.parts">
 
-  <div class="preview">
-  <div class="preview-content">
-    <div class="top-row">
-      <img :src="selectedRobot.head.imageUrl" alt='headPreview'/>
+    <div class="preview">
+      <CollapsableSection>
+        <template v-slot:collapse>&#x25B2; Hide</template>
+        <template v-slot:expand>&#x25BC; Show</template>
+        <div class="preview-content">
+          <div class="top-row">
+            <img :src="selectedRobot.head.imageUrl" alt='headPreview'/>
+          </div>
+          <div class="middle-row">
+            <img :src="selectedRobot.leftArm.imageUrl" class="rotate-left" alt='leftArmPreview'/>
+            <img :src="selectedRobot.torso.imageUrl" alt='torsoPreview'/>
+            <img :src="selectedRobot.rightArm.imageUrl" class="rotate-right" alt='rightArmPreview'/>
+          </div>
+          <div class="bottom-row">
+            <img :src="selectedRobot.base.imageUrl" alt='basePreview'/>
+          </div>
+        </div>
+      </CollapsableSection>
+      <button class="add-to-cart" @click="addToCart()">Add to Cart</button>
     </div>
-    <div class="middle-row">
-      <img :src="selectedRobot.leftArm.imageUrl" class="rotate-left" alt='leftArmPreview'/>
-      <img :src="selectedRobot.torso.imageUrl" alt='torsoPreview'/>
-      <img :src="selectedRobot.rightArm.imageUrl" class="rotate-right" alt='rightArmPreview'/>
-    </div>
-    <div class="bottom-row">
-      <img :src="selectedRobot.base.imageUrl" alt='basePreview'/>
-    </div>
-    <button class="add-to-cart" @click="addToCart()">Add to Cart</button>
-  </div>
-</div>
+
     <div class="top-row">
       <div class="robot-name">{{ selectedRobot.head.title }}
         <span v-if="selectedRobot.head.onSale" class="sale">Sale!</span>
@@ -174,6 +179,7 @@ import { usePartsStore } from "@/stores/partsStore";
 import { storeToRefs } from "pinia";
 import { ref } from "vue";
 import PartSelector from "./PartSelector.vue";
+import CollapsableSection from "../shared/CollapsableSection.vue";
 
 const { cart } = storeToRefs(useCartStore());
 
