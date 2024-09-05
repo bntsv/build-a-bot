@@ -8,13 +8,19 @@
     </router-link>
     <button @click="selectPreviousPart()" class="prev-selector"></button>
     <button @click="selectNextPart()" class="next-selector"></button>
-    <span class="sale" v-show="selectedPart.onSale">Sale!</span>
+    <span
+      v-pin="{ bottom: pinPadding, right: pinPadding}"
+      class="sale"
+      v-show="selectedPart.onSale">
+        Sale!
+    </span>
   </div>
 </template>
 
 <script setup>
 import { computed, ref, onUpdated } from "vue";
 
+const pinPadding = ref("10px");
 const props = defineProps({
   parts: { type: Array, required: true },
   position: { type: String, required: true, validator(value) { return ["left", "right", "center", "top", "bottom"].includes(value); } },
@@ -65,9 +71,9 @@ const selectPreviousPart = () => {
 }
 
 .sale {
-  position: absolute;
+  /* position: absolute;
   bottom: 5px;
-  right: 5px;
+  right: 5px; */
   color: white;
   background-color: red;
   padding: 3px;
