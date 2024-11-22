@@ -11,5 +11,11 @@ module.exports = defineConfig({
         // changeOrigin: true,
       },
     },
+    configureWebpack: (config) => {
+      // config.modules.rules.push({
+      //   test: /\.coffee$/,
+      //   use: ["coffee-loader"],
+      // });
+    },
   },
 });
